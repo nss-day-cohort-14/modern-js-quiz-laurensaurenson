@@ -31,9 +31,16 @@ let fillPlayers = () => {
     }
   }
   robot2.playerName = nameInput2.val();
-  
-      console.log("robot1", robot1);
-      console.log("robot2", robot2);
+
+  showAttackScreen();
+}
+
+// switches to Attack View //
+let showAttackScreen = () => {
+  $("#attackButton").removeClass("hidden");
+  $("#fightReady").addClass("hidden");
+  $("#makeRobot1").addClass("hidden");
+  $("#makeRobot2").addClass("hidden");
 }
 
 let fightReady = $("#fightReady").click(fillPlayers);
