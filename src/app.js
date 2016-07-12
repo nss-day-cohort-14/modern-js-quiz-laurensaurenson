@@ -45,7 +45,18 @@ let attack = () => {
   robot2.health = robot2.health - robot1.damage;
   fillAttackScreen(robot1, fightRobot1);
   fillAttackScreen(robot2, fightRobot2);
+  if ( robot1.health <= 0 ) {
+    winnerAnnouncement(robot2);
+  } else if ( robot2.health <= 0 ) {
+    winnerAnnouncement(robot1);
+  }
 };
+
+// announce the winner //
+let winnerAnnouncement = (robot) => {
+  $("#attackButton").attr("disabled", true);
+  $("#winner").html(`The winner is ${robot.playerName} with the ${robot.name} using ${robot.attack}`);
+}
 
 // fill attack screen information //
 let fillAttackScreen = (robot, robotBox) => {
