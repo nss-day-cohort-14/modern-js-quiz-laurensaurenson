@@ -56,6 +56,7 @@ let attack = () => {
 let winnerAnnouncement = (robot) => {
   $("#attackButton").attr("disabled", true);
   $("#winner").html(`The winner is ${robot.playerName} with the ${robot.name} using ${robot.attack}`);
+  $("#reset").removeClass("hidden");
 }
 
 // fill attack screen information //
@@ -75,7 +76,22 @@ let showAttackScreen = () => {
   $("#fightReady").addClass("hidden");
   $("#makeRobot1").addClass("hidden");
   $("#makeRobot2").addClass("hidden");
+  $("#attackButton").attr("disabled", false);
 };
+
+let reset = () => {
+  $("#fightReady").removeClass("hidden");
+  $("#makeRobot1").removeClass("hidden");
+  $("#makeRobot2").removeClass("hidden");
+  $("#attackButton").addClass("hidden");
+  $("#reset").addClass("hidden");
+  nameInput1.val("");
+  nameInput2.val("");
+  fightRobot1.empty();
+  fightRobot2.empty();
+  $("#winner").empty();
+}
 
 let fightReady = $("#fightReady").click(fillPlayers);
 let attackButton = $("#attackButton").click(attack);
+let resetButton = $("#reset").click(reset);
