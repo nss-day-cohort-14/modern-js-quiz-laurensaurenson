@@ -3,6 +3,7 @@
 // General Robots
 
 var Robot = function () {
+  this.playerName = "No Name Entered";
   this.robot = true;
   this.model = null;
   this.type = null;
