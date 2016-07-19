@@ -8,14 +8,10 @@ let Robot = require('../src/Robot');
 
 describe("Robot Functions", function () {
 
-  let robotTest = new Robot.BearBot();
+  let robotTest = new Robot.Bear();
 
   it("should have a required Robot file", function () {
     expect(Robot).toBeDefined();
-  });
-
-  it("should have an array containing robot objects", function () {
-    expect(Robot.botArray).toBeDefined();
   });
 
   it("should should define the test as an object", function () {
@@ -29,11 +25,6 @@ describe("Robot Functions", function () {
   it("should have have an assigned attack name", function () {
     expect(robotTest.attack).toBe("Bear Hugs");
   });
-
-  it("should have a health between two previously assigned numbers", function () {
-    expect(robotTest.health).toBeGreaterThan(99);
-    expect(robotTest.health).toBeLessThan(131);
-  })
 
   it("should have a damage between two previously assigned numbers", function () {
     expect(robotTest.damage).toBeGreaterThan(5);
