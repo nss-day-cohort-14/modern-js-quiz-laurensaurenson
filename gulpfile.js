@@ -1,21 +1,19 @@
 "use strict";
 
-//use npm install --save to install all of these dependencies first
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var watch = require('gulp-watch');
-var watchify = require('watchify');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var gutil = require('gulp-util');
-var sourcemaps = require('gulp-sourcemaps');
-var assign = require('lodash.assign');
-var jasmine = require('gulp-jasmine');
-var jasmineSpecReporter = require('jasmine-spec-reporter');
-// var sass = require('gulp-sass');
+let gulp = require('gulp');
+let jshint = require('gulp-jshint');
+let watch = require('gulp-watch');
+let watchify = require('watchify');
+let browserify = require('browserify');
+let source = require('vinyl-source-stream');
+let buffer = require('vinyl-buffer');
+let gutil = require('gulp-util');
+let sourcemaps = require('gulp-sourcemaps');
+let sass = require('gulp-sass');
+let jasmine = require('gulp-jasmine');
+let jasmineSpecReporter = require('jasmine-spec-reporter');
 
-var handleError = function(task) {
+let handleError = function(task) {
   return function(err) {
 
     notify.onError({
@@ -27,12 +25,19 @@ var handleError = function(task) {
   };
 };
 
-var customOpts = {
+
+/*
+  BROWSERIFY SECTION
+
+  Delete or comment out if you are not using Browserify
+ */
+
+let customOpts = {
   entries: ['./src/app.js'],
-  debug: true //creates readable 'source maps' of code
+  debug: true
 };
-var opts = assign({}, watchify.args, customOpts);
-var bundler = watchify(browserify(opts));
+let opts = Object.assign({}, watchify.args, customOpts);
+let bundler = watchify(browserify(opts)); 
 bundler.on('update', bundle); // on any dep update, runs the bundler
 bundler.on('log', gutil.log); // output build logs to terminal
 
@@ -51,12 +56,27 @@ function bundle() {
 }
 gulp.task('browserify', bundle);
 
+
+
+/*
+  JSHINT SECTION
+
+  Not optional. You should always be validating your JavaScript
+ */
+gulp.task('lint', function() {
+  return gulp.src(['./src/scripts/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .on('error', function() { });
+});
+
+
 /*
   JASMINE SECTION
   */
 
 gulp.task('specs', function() {
-  return gulp.src('./specs/*.js')
+  return gulp.src('./spec/*.js')
     .pipe(jasmine({
         reporter: new jasmineSpecReporter({
         displayFailuresSummary: false,
@@ -67,17 +87,33 @@ gulp.task('specs', function() {
     }));
 });
 
-/*
-  JSHINT SECTION
+// /*
+//   SASS SECTION
 
-  Not optional. You should always be validating your JavaScript
- */
-gulp.task('lint', function() {
-  return gulp.src(['./src/**/*.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .on('error', function() { });
-});
+//   Delete or comment out if you are not using SASS
+//  */
+// gulp.task('sass', function() {
+//   return gulp.src('./src/sass/*.scss')
+//     // sourcemaps + sass + error handling
+//     .pipe(sourcemaps.init())
+//     .pipe(sass({
+//       sourceComments: true,
+//       outputStyle: 'compressed'  // nested || compressed
+//     }))
+//     .on('error', handleError('SASS'))
+//     // generate .maps
+//     .pipe(sourcemaps.write({
+//       'includeContent': false,
+//       'sourceRoot': '.'
+//     }))
+//     .pipe(sourcemaps.write({
+//       'includeContent': true
+//     }))
+//     // write sourcemaps to a specific directory
+//     // give it a file and save
+//     .pipe(gulp.dest('./dist/css'));
+// });
+
 
 /*
   WATCH TASK SECTION
@@ -87,9 +123,14 @@ gulp.task('lint', function() {
  */
 gulp.task('watch', function() {
   // Run the link task when any JavaScript file changes
-  gulp.watch(['./src/**/*.js', './specs/**/*.js'], ['lint', 'specs']);
+  gulp.watch(['./src/**/*.js', './spec/**/*.js'], ['lint', 'specs']);
+
+  // Run the sass task when any SCSS file changes
+  // Remov if not using SASS
+  // gulp.watch('./src/sass/**/*.scss', ['sass']);
+
   gutil.log(gutil.colors.bgGreen('Watching for changes...'));
 });
 
 // This task runs when you type `gulp` in the CLI
-gulp.task('default', ['lint', 'watch', 'specs'], bundle);
+gulp.task('default', ['lint', 'specs', 'watch'], bundle); 

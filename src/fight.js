@@ -1,7 +1,5 @@
 "use strict";
 
-// const $ = require("jQuery");
-
 let fillDOM = require("./fillDom");
 let viewChange = require("./viewChange");
 let Robot = require("./Robot");
@@ -28,6 +26,10 @@ function attack () {
 
 let fillPlayers = () => {
   let selectRobot1 = $("#select1 option:selected").attr("id");
+  if (nameInput1.val() === "" || nameInput2.val() === "") {
+    window.alert("Please insert name for both players.");
+    return;
+  }
   for ( let key in Robot) {
     if ( key === selectRobot1 ) {
       robot1 = new Robot[key]();

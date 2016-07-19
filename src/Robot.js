@@ -14,6 +14,7 @@ var Robot = function () {
 var FireBots = function () {
   this.model = "Fire Bot";
   this.attack = "Burninating Things";
+  this.health = 40;
 };
 
 FireBots.prototype = new Robot();
@@ -21,6 +22,7 @@ FireBots.prototype = new Robot();
 var WaterBots = function () {
   this.model = "Water Bot";
   this.attack = "Watering Things";
+  this.health = 30;
 };
 
 WaterBots.prototype = new Robot();
@@ -28,6 +30,7 @@ WaterBots.prototype = new Robot();
 var TankBots = function () {
   this.model = "Tank Bot";
   this.attack = "Exploding Things";
+  this.health = 50;
 };
 
 TankBots.prototype = new Robot();
@@ -36,78 +39,70 @@ TankBots.prototype = new Robot();
 
 // Types of Fire Bot //
 
-var WeldingBot = function () {
-  this.type = "WeldingBot";
+var Welding = function () {
+  this.type = "Welding";
   this.name = "Welding Bot";
   this.attack = "Welding";
-  this.health = Math.floor(Math.random() * (100 - 80) + 80);
+  this.health += Math.floor(Math.random() * (100 - 80) + 80);
   this.damage = Math.floor(Math.random() * (20 - 10) + 10);
 };
 
-WeldingBot.prototype = new FireBots();
-let weldingBot = new WeldingBot();
+Welding.prototype = new FireBots();
 
-var DragonBot = function() {
-  this.type = "DragonBot";
+var Dragon = function() {
+  this.type = "Dragon";
   this.name = "Dragon Bot";
   this.attack = "Breathing Fire";
-  this.health = Math.floor(Math.random() * (110 - 90) + 80);
+  this.health += Math.floor(Math.random() * (110 - 90) + 80);
   this.damage = Math.floor(Math.random() * (25 - 15) + 15);
 };
 
-DragonBot.prototype = new FireBots();
-let dragonBot = new DragonBot();
+Dragon.prototype = new FireBots();
 
 // Types of Water Bots //
 
-var DolphinBot = function () {
-  this.type = "DolphinBot";
+var Dolphin = function () {
+  this.type = "Dolphin";
   this.name = "Dolphin Bot";
   this.attack = "Splash";
-  this.health = Math.floor(Math.random() * (90 - 70) + 70);
+  this.health += Math.floor(Math.random() * (90 - 70) + 70);
   this.damage = Math.floor(Math.random() * (30 - 20) + 20);
 };
 
-DolphinBot.prototype = new WaterBots();
-let dolphinBot = new DolphinBot();
+Dolphin.prototype = new WaterBots();
 
-var CrabBot = function () {
-  this.type = "CrabBot";
+var Crab = function () {
+  this.type = "Crab";
   this.name = "Crab Bot";
   this.attack = "Pinchy Claws";
-  this.health = Math.floor(Math.random() * (80 - 60) + 60);
+  this.health += Math.floor(Math.random() * (80 - 60) + 60);
   this.damage = Math.floor(Math.random() * (35 - 23) + 23);
 };
 
-CrabBot.prototype = new WaterBots();
-let crabBot = new CrabBot();
+Crab.prototype = new WaterBots();
 
 // Types of Tank Bots //
 
-var BearBot = function () {
-  this.type = "BearBot";
+var Bear = function () {
+  this.type = "Bear";
   this.name = "Bear Bot";
   this.attack = "Bear Hugs";
-  this.health = Math.floor(Math.random() * (130 - 100) + 100);
+  this.health += Math.floor(Math.random() * (130 - 100) + 100);
   this.damage = Math.floor(Math.random() * (15 - 5) + 5);
 };
 
-BearBot.prototype = new TankBots();
-let bearBot = new BearBot();
+Bear.prototype = new TankBots();
 
-var OptimusBot = function () {
-  this.type = "OptimusBot";
+var Optimus = function () {
+  this.type = "Optimus";
   this.name = "Optimus Bot";
   this.attack = "Trucking";
-  this.health = Math.floor(Math.random() * (120 - 115) + 115);
+  this.health += Math.floor(Math.random() * (120 - 115) + 115);
   this.damage = Math.floor(Math.random() * (20 - 5) + 5);
 };
 
-OptimusBot.prototype = new TankBots();
-let optimusBot = new OptimusBot();
-
-let botArray = [ weldingBot, dragonBot, dolphinBot, crabBot, bearBot, optimusBot ];
+Optimus.prototype = new TankBots();
 
 module.exports = {
-  WeldingBot, DragonBot, DolphinBot, CrabBot, BearBot, OptimusBot, botArray
+  Welding, Dragon, Dolphin, Crab, Bear, Optimus
 };

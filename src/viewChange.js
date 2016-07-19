@@ -1,7 +1,5 @@
 "use strict";
 
-// const $ = require("jQuery");
-
 let fightRobot1 = $("#fightRobot1");
 let fightRobot2 = $("#fightRobot2");
 

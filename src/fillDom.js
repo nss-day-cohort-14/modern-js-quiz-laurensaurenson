@@ -1,19 +1,17 @@
 "use strict";
 
-// const $ = require("jQuery");
-
 let Robot = require("./Robot");
 let viewChange = require("./viewChange");
 
-let fightRobot1 = $("#fightRobot1");
-let fightRobot2 = $("#fightRobot2");
-let typeSelects = $(".robot-types");
-let nameInput1 = $("#name1");
-let nameInput2 = $("#name2");
+let fightRobot1 = $("#fightRobot1"),
+    fightRobot2 = $("#fightRobot2"),
+    typeSelects = $(".robot-types"),
+    nameInput1 = $("#name1"),
+    nameInput2 = $("#name2");
 
 let fillSelectOptions = () => {
-  for (let i = 0; i < Robot.botArray.length; i++ ) {
-    let newTypeOption = $("<option>").attr("id", `${Robot.botArray[i].type}`).html(`${Robot.botArray[i].name}`);
+  for ( let key in Robot) {
+    let newTypeOption = $("<option>").attr("id", `${key}`).html(`${key}`);
     typeSelects.append(newTypeOption);
   }
 };
@@ -25,7 +23,6 @@ let winnerAnnouncement = (robot) => {
   $("#reset").removeClass("hidden");
 };
 
-
 let fillAttackScreen = (robot, robotBox) => {
   robotBox.empty();
   let playerName = $("<h4>").html(`Player Name: ${robot.playerName}`);
@@ -35,7 +32,6 @@ let fillAttackScreen = (robot, robotBox) => {
   let robotDamage = $("<h5>").html(`Damage: ${robot.damage}`);
   robotBox.append(playerName, robotType, robotHealth, robotAttack, robotDamage);
 };
-
 
 module.exports = {
   fillAttackScreen, fillSelectOptions, winnerAnnouncement
